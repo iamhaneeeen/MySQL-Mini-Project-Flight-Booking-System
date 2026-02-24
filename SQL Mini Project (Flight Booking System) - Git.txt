@@ -2,30 +2,36 @@ SQL Mini Project (Flight Booking System) - Git
 
 create database project;
 use project;
+
 create table passengers(Passenger_ID int primary key, First_Name varchar(50), Last_Name varchar(50));
 insert into passengers(Passenger_ID,First_Name,Last_Name)values
 (1,'John','Smith'),
 (2,'Jennifer','Smith');
 select * from passengers;
+
 create table airline(Airline_ID int primary key, Name varchar(50));
 insert into airline(Airline_ID,Name)values
 (1,'Alaska Airlines');
 select * from airline;
+
 create table airport(Airport_Code char(3) primary key, Airport_Name varchar(100), City varchar(50), State varchar(50));
 insert into airport(Airport_Code,Airport_Name,City,State)values
 ('LAX','Los Angeles International Airport','Los Angeles','CA'),
 ('SFO','San Francisco International Airport','San Francisco','CA');
 select * from airport;
+
 create table flight(Flight_ID int primary key, Flight_Number varchar(10), Airline_ID int, Departure_From char(3), Arrival_At char(3), Departure_Time datetime, Arrival_Time datetime, Duration varchar(20), Distance int, Class varchar(20),
 foreign key (Airline_ID) references airline(Airline_ID), foreign key (Departure_From) references airport(Airport_Code), foreign key (Arrival_At) references airport(Airport_Code));
 insert into flight(Flight_ID,Flight_Number,Airline_ID,Departure_From,Arrival_At,Departure_Time,Arrival_Time,Duration,Distance,Class)values
 (1,'1490',1,'LAX','SFO','2019-04-05 08:20','2019-04-05 09:35','1h 15m',236,'Economy'),
 (2,'1473',1,'SFO','LAX','2019-04-07 14:00','2019-04-07 15:15','1h 15m',236,'Economy');
 select * from flight;
+
 create table bookings(Booking_ID int primary key, Booking_Date date, Confirmation_No varchar(20) unique, Total_Price decimal(10,2));
 insert into bookings(Booking_ID,Booking_Date,Confirmation_No,Total_Price)values
 (1,'2019-04-01', 'TAEGKX', 756.20);
 select * from bookings;
+
 create table tickets(Ticket_No varchar(20) primary key, Booking_ID int, Passenger_ID int, Flight_ID int, Ticket_Price decimal(10,2),
 foreign key (Booking_ID) references bookings(Booking_ID), foreign key (Passenger_ID) references passengers(Passenger_ID), foreign key (Flight_ID) references flight(Flight_ID));
 insert into tickets(Ticket_No,Booking_ID,Passenger_ID,Flight_ID,Ticket_Price)values
